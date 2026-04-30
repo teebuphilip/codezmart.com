@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodezMart — Tools Built by a Guy Who Made Every Mistake</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f0e8;
+    --yellow: #f5c518;
+    --red: #e63425;
+    --gray: #2a2a2a;
+    --mid: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-inner span { margin: 0 3rem; }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* HERO */
+  .hero {
+    padding: 60px 24px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--yellow);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--yellow);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  h1 .codez { color: var(--white); }
+  h1 .mart { color: var(--yellow); }
+
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.75rem, 2vw, 0.95rem);
+    color: var(--mid);
+    margin: 20px 0 0;
+    line-height: 1.6;
+    max-width: 560px;
+    border-left: 3px solid var(--red);
+    padding-left: 16px;
+  }
+
+  .hero-sub strong { color: var(--white); }
+
+  /* DIVIDER */
+  .divider {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--gray); }
+  .divider-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* PRODUCTS GRID */
+  .products {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+  }
+
+  .card {
+    background: var(--gray);
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.2s ease, background 0.2s ease;
+    cursor: default;
+  }
+
+  .card:hover { background: #333; transform: translateY(-3px); }
+
+  .card.live { border-top: 3px solid var(--yellow); }
+  .card.soon { border-top: 3px solid var(--mid); opacity: 0.6; }
+
+  .card-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .card.live .card-status { color: var(--yellow); }
+  .card.soon .card-status { color: var(--mid); }
+
+  .card-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--gray);
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    line-height: 1;
+    filter: brightness(2);
+    opacity: 0.3;
+  }
+
+  .card h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .card ul {
+    list-style: none;
+    margin-bottom: 28px;
+  }
+  .card ul li {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: #888;
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card ul li::before { content: '→'; color: var(--yellow); flex-shrink: 0; }
+  .card.soon ul li::before { color: var(--mid); }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--yellow);
+    letter-spacing: 0.05em;
+  }
+  .card.soon .price { color: var(--mid); }
+
+  .price-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--mid);
+    margin-top: 2px;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 12px 20px;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn:hover { background: #ffd740; transform: scale(1.03); }
+
+  .btn-soon {
+    display: inline-block;
+    border: 1px solid var(--mid);
+    color: var(--mid);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    padding: 12px 20px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--gray);
+    padding: 32px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-brand span { color: var(--yellow); }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mid);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .footer-links a:hover { color: var(--yellow); }
+
+  .footer-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  /* SCRATCH MARKS decoration */
+  .scratch {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    color: var(--red);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 600px) {
+    .products { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>BUILT BY A GUY WHO MADE EVERY MISTAKE</span>
+    <span>★</span>
+    <span>TOOLS THAT WORK. NO FLUFF.</span>
+    <span>★</span>
+    <span>25 YEARS OF FAILURES → YOUR SHORTCUT</span>
+    <span>★</span>
+    <span>CODEZMART.COM</span>
+    <span>★</span>
+    <span>BUILT BY A GUY WHO MADE EVERY MISTAKE</span>
+    <span>★</span>
+    <span>TOOLS THAT WORK. NO FLUFF.</span>
+    <span>★</span>
+    <span>25 YEARS OF FAILURES → YOUR SHORTCUT</span>
+    <span>★</span>
+    <span>CODEZMART.COM</span>
+    <span>★</span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-tag">The builder's salvage yard</div>
+  <h1><span class="codez">CODEZ</span><span class="mart">MART</span></h1>
+  <p class="hero-sub">
+    <strong>Tools built by someone who wasted 25 years building the wrong things.</strong><br>
+    No venture funding. No growth hacks. No BS.<br>
+    Just cheap, battle-tested tools that tell you the truth.
+  </p>
+</div>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-text">What's in the yard</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="products">
+
+  <!-- CARD 1 - LIVE -->
+  <div class="card live">
+    <div class="card-number">01</div>
+    <div class="card-status">● Live now</div>
+    <h2>Startup Idea Validation Report</h2>
+    <p>Is your idea already dead? Find out before you waste 6 months on it. I run it through a 7-step pipeline and send you back everything in 48 hours.</p>
+    <ul>
+      <li>Dead-on-arrival verdict</li>
+      <li>Pricing model</li>
+      <li>Name + domain availability</li>
+      <li>SEO keywords</li>
+      <li>Marketing copy</li>
+      <li>Full GTM plan</li>
+    </ul>
+    <div class="card-footer">
+      <div>
+        <div class="price">$97</div>
+        <div class="price-note">ONE TIME · 48HR TURNAROUND</div>
+      </div>
+      <a href="https://buy.stripe.com/fZu4gy2Na4zU2kM3Od87K00" class="btn" target="_blank">Get Report →</a>
+    </div>
+  </div>
+
+  <!-- CARD 2 - COMING SOON -->
+  <div class="card soon">
+    <div class="card-number">02</div>
+    <div class="card-status">○ Coming soon</div>
+    <h2>Job Score Service</h2>
+    <p>Send me your resume and 10 job postings. I score and rank them so you stop applying to jobs that were never going to call you back.</p>
+    <ul>
+      <li>Resume vs job fit score</li>
+      <li>Ranked priority list</li>
+      <li>Red flags per posting</li>
+      <li>Cover letter angles</li>
+    </ul>
+    <div class="card-footer">
+      <div>
+        <div class="price">$47</div>
+        <div class="price-note">ONE TIME · 48HR TURNAROUND</div>
+      </div>
+      <div class="btn-soon">Notify Me</div>
+    </div>
+  </div>
+
+  <!-- CARD 3 - COMING SOON -->
+  <div class="card soon">
+    <div class="card-number">03</div>
+    <div class="card-status">○ Coming soon</div>
+    <h2>Build-Ready Spec</h2>
+    <p>You have an idea. I turn it into a complete technical spec a developer can actually build from. No more "I have an app idea" going nowhere.</p>
+    <ul>
+      <li>Full feature breakdown</li>
+      <li>Tech stack recommendation</li>
+      <li>Database schema</li>
+      <li>API surface map</li>
+      <li>Build cost estimate</li>
+    </ul>
+    <div class="card-footer">
+      <div>
+        <div class="price">$197</div>
+        <div class="price-note">ONE TIME · 48HR TURNAROUND</div>
+      </div>
+      <div class="btn-soon">Notify Me</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">CODEZ<span>MART</span></div>
+    <div class="footer-links">
+      <a href="https://confessionsofaloser.substack.com" target="_blank">Lou Zerr's Substack</a>
+      <a href="mailto:teebu@yahoo.com">Contact</a>
+    </div>
+  </div>
+  <div class="footer-note">
+    Built by Lou Zerr. 943 mistakes and counting. South Florida. © 2026 CodezMart.
+  </div>
+</div>
+
+</body>
+</html>
