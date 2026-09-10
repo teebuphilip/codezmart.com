@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InvoiceTool Examples | Codezmart</title>
+  <meta name="description" content="See the InvoiceTool modules that show how Codezmart-style products are packaged for B2C and B2B buyers.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="/">Codezmart</a>
+    <div class="nav-links">
+      <a href="/pricing.html">Packages</a>
+      <a href="/taxonomy.html">Taxonomy</a>
+      <a href="/examples/invoicetool.html">Examples</a>
+      <a href="/b2b.html">B2B</a>
+      <a class="nav-button" href="/buy.html">Buy Now</a>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Example build</p>
+        <h1>InvoiceTool shows the product surface before the sale.</h1>
+        <p class="lead">This page pulls the real modules from the InvoiceTool stack and presents them the way a B2C or B2B buyer would experience them: customer workflow on one side, operational controls on the other.</p>
+        <div class="cta-row">
+          <a href="#b2c">Customer views</a>
+          <a class="secondary" href="#b2b">Business views</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <p class="eyebrow">Why this matters</p>
+        <p>Buyers rarely purchase abstractions. They buy a clear set of screens, actions, and outcomes. InvoiceTool is a clean example of how a simple SaaS can be explained before anyone asks for a demo.</p>
+        <div class="metric-grid">
+          <div class="metric"><strong>8</strong><span>shown modules</span></div>
+          <div class="metric"><strong>2</strong><span>audience types</span></div>
+          <div class="metric"><strong>1</strong><span>shared platform</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="example-band">
+        <div>
+          <p class="eyebrow">What you can inspect</p>
+          <h2>Browse the customer workflow and the admin workflow separately.</h2>
+          <p>Each example below is named after the actual module in the InvoiceTool repo, so the sales page stays grounded in something the buyer can evaluate quickly.</p>
+        </div>
+        <a class="button" href="/pricing.html">See Codezmart packages</a>
+      </div>
+    </section>
+
+    <section class="section" id="b2c">
+      <div class="section-header">
+        <p class="eyebrow">B2C surface</p>
+        <h2>What the end customer sees.</h2>
+        <p class="lead">These are the self-serve screens that make the product feel real to the buyer using it day to day.</p>
+      </div>
+      <div class="package-grid">
+        <article class="package-card">
+          <p class="eyebrow">Customer action</p>
+          <h3>Submit Invoice</h3>
+          <p>Create an invoice with vendor, date, amount, and line items from the browser.</p>
+          <p class="muted">Module: <code>business/frontend/pages/SubmitInvoices.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Customer action</p>
+          <h3>View Invoice</h3>
+          <p>Open a single invoice, inspect its status, and check the amount and update history.</p>
+          <p class="muted">Module: <code>business/frontend/pages/ViewInvoices.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Customer action</p>
+          <h3>Make Payment</h3>
+          <p>Let the buyer complete a payment flow inside the product instead of bouncing elsewhere.</p>
+          <p class="muted">Module: <code>business/frontend/pages/MakePayments.jsx</code></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="b2b">
+      <div class="section-header">
+        <p class="eyebrow">B2B surface</p>
+        <h2>What the operator or buyer team sees.</h2>
+        <p class="lead">These screens support finance teams, admins, and customer operations. They are the parts that justify a higher-value deal.</p>
+      </div>
+      <div class="package-grid">
+        <article class="package-card">
+          <p class="eyebrow">Operations</p>
+          <h3>Manual Invoice Entry</h3>
+          <p>Create invoices by hand, review prior entries, and keep the workflow moving without a spreadsheet.</p>
+          <p class="muted">Module: <code>business/frontend/pages/ManualInvoiceEntryForm.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Operations</p>
+          <h3>View All Invoices</h3>
+          <p>Filter, sort, and paginate the invoice table for a full operational view.</p>
+          <p class="muted">Module: <code>business/frontend/pages/ViewAllInvoices.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Administration</p>
+          <h3>Configure Settings</h3>
+          <p>Adjust business settings, product defaults, and operating preferences from one place.</p>
+          <p class="muted">Module: <code>business/frontend/pages/ConfigureSettings.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Retention</p>
+          <h3>Email Notifications</h3>
+          <p>Alert the team when invoice status changes so customers are not left guessing.</p>
+          <p class="muted">Module: <code>business/frontend/pages/EmailNotificationsForInvoiceStatus.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Admin</p>
+          <h3>Manage Users</h3>
+          <p>Keep roles, access, and onboarding under control for the team running the account.</p>
+          <p class="muted">Module: <code>business/frontend/pages/ManageUsers.jsx</code></p>
+        </article>
+        <article class="package-card">
+          <p class="eyebrow">Commercial layer</p>
+          <h3>Pricing and Signup</h3>
+          <p>Show the commercial path in one place so the customer understands how to get started.</p>
+          <p class="muted">Module: <code>frontend/src/pages/Pricing.jsx</code> and <code>frontend/src/pages/Signup.jsx</code></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section panel build-process">
+      <p class="eyebrow">How to use this</p>
+      <h2>Show the product surface before you ask for the sale.</h2>
+      <p>Use this page in B2C and B2B conversations when you need to show what a real product looks like, not just what it promises. It is a tighter way to sell than a long pitch deck.</p>
+      <div class="cta-row">
+        <a href="/buy.html">Buy B2C packages</a>
+        <a class="secondary" href="/b2b.html">View B2B materials</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer page-shell">InvoiceTool is the concrete example page for the broader Codezmart sales motion.</footer>
+</body>
+</html>

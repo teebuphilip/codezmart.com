@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy or inquire | Codezmart</title>
+  <meta name="description" content="Buy the fixed Codezmart packages through Stripe Checkout and send full-build inquiries by email without a custom backend.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="/">Codezmart</a>
+    <div class="nav-links">
+      <a href="/pricing.html">Packages</a>
+      <a href="/taxonomy.html">Taxonomy</a>
+      <a href="/examples/invoicetool.html">Examples</a>
+      <a href="/b2b.html">B2B</a>
+      <a class="nav-button" href="/pricing.html">View Pricing</a>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Stripe checkout</p>
+        <h1>Buy without a heavy backend.</h1>
+        <p class="lead">Use a tiny checkout service for the fixed packages, keep the full-build path as an inquiry, and avoid managing thousands of Stripe products or links.</p>
+        <div class="cta-row">
+          <a href="/stripe-b2c-setup.md">Read setup notes</a>
+          <a class="secondary" href="/pricing.html">Review packages</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <p class="eyebrow">How it works</p>
+        <p>The fixed packages point to a tiny checkout service that creates the Stripe session on demand. Full Build & Deploy uses a static inquiry form so you can negotiate scope and send a scheduling link after the lead lands in your inbox.</p>
+        <div class="metric-grid">
+          <div class="metric"><strong>5</strong><span>fixed checkout routes</span></div>
+          <div class="metric"><strong>1</strong><span>inquiry form</span></div>
+          <div class="metric"><strong>1</strong><span>tiny checkout service</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section panel buy-note">
+      <p class="eyebrow">Selected idea</p>
+      <h2 id="selected-idea">No idea selected</h2>
+      <p id="selected-idea-copy">If you arrived from an idea page, the idea id will show here for context. The Stripe link still sends the customer through the hosted checkout flow.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <p class="eyebrow">Buy now</p>
+        <h2>Choose the smallest package that gets the customer to yes.</h2>
+      </div>
+      <div class="buy-grid" id="package-list">
+        <article class="package-card" id="enriched-idea">
+          <p class="eyebrow">Pre-generated</p>
+          <h3>Enriched Idea Pack</h3>
+          <p class="price">$97</p>
+          <p>Business brief, target user, wedge, market context, SEO direction, marketing copy, and GTM notes.</p>
+          <a class="buy-link link-disabled" data-stripe-link="enrichedIdea" href="#">Connect Stripe link</a>
+        </article>
+        <article class="package-card" id="build-json">
+          <p class="eyebrow">Pre-generated</p>
+          <h3>Build JSON</h3>
+          <p class="price">$147</p>
+          <p>Structured build JSON and schedule for a builder who wants the decision tree without extra discovery.</p>
+          <a class="buy-link link-disabled" data-stripe-link="buildJson" href="#">Connect Stripe link</a>
+        </article>
+        <article class="package-card" id="grilled-blueprint">
+          <p class="eyebrow">Idea-specific</p>
+          <h3>Grilled Blueprint</h3>
+          <p class="price">$297</p>
+          <p>Cleaned-up JSON for the chosen idea with ambiguity removed and implementation decisions frozen.</p>
+          <a class="buy-link link-disabled" data-stripe-link="grilledBlueprint" href="#">Connect Stripe link</a>
+        </article>
+        <article class="package-card" id="planner-prd">
+          <p class="eyebrow">Idea-specific</p>
+          <h3>Planner / PRD Pack</h3>
+          <p class="price">$997</p>
+          <p>Phase plan, feature PRDs, acceptance criteria, dependencies, route mapping, and build sequencing.</p>
+          <a class="buy-link link-disabled" data-stripe-link="plannerPrd" href="#">Connect Stripe link</a>
+        </article>
+        <article class="package-card" id="generated-code">
+          <p class="eyebrow">Idea-specific</p>
+          <h3>Generated Code ZIP</h3>
+          <p class="price">$2,997</p>
+          <p>Generated codebase ZIP from the build harness for the selected idea.</p>
+          <a class="buy-link link-disabled" data-stripe-link="generatedCode" href="#">Connect Stripe link</a>
+        </article>
+        <article class="package-card featured" id="full-build">
+          <p class="eyebrow">Done-for-you</p>
+          <h3>Full Build & Deploy</h3>
+          <p class="price">$10,000</p>
+          <p>FounderOps build, QA loop, repair passes, final ZIP, GitHub handoff, and deployment. This is an inquiry, not a checkout.</p>
+          <form class="contact-form" id="full-build-form">
+            <div class="field-grid">
+              <label class="field">
+                <span>Name</span>
+                <input name="name" type="text" placeholder="Your name" required>
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input name="email" type="email" placeholder="you@company.com" required>
+              </label>
+              <label class="field">
+                <span>Company</span>
+                <input name="company" type="text" placeholder="Company or studio">
+              </label>
+              <label class="field">
+                <span>Budget / timing</span>
+                <input name="budget" type="text" placeholder="Budget and desired launch date">
+              </label>
+            </div>
+            <label class="field">
+              <span>What do you want built?</span>
+              <textarea name="scope" rows="4" placeholder="Describe the idea, target user, and any constraints." required></textarea>
+            </label>
+            <div class="cta-row">
+              <button class="button" type="submit">Open email draft</button>
+              <a class="secondary" href="/pricing.html">Review pricing</a>
+            </div>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <section class="section panel build-process">
+      <p class="eyebrow">Stripe setup</p>
+      <h2>What to turn on in Stripe</h2>
+      <p>Create a Stripe secret key for the checkout service, then let the service create Checkout Sessions with inline product data, SKU metadata, and the buyer’s idea id. Turn on successful-payment emails in your Stripe customer email settings if you want alerts after every sale.</p>
+      <p>The site only needs the package mapping and the Stripe secret key. Full Build & Deploy is handled as an inquiry flow, so you can review scope and send a scheduling link before you commit.</p>
+    </section>
+  </main>
+
+  <footer class="footer page-shell">Stripe handles the fixed-package checkout. Full Build & Deploy starts with email and a scheduled call. All sales final. No refunds or partial credits.</footer>
+  <script src="/stripe-links.js"></script>
+  <script>
+    const ideaParam = new URLSearchParams(window.location.search).get('idea');
+    if (ideaParam) {
+      const title = document.getElementById('selected-idea');
+      const copy = document.getElementById('selected-idea-copy');
+      if (title) title.textContent = `Selected idea: ${ideaParam}`;
+      if (copy) copy.textContent = 'The fixed-package buttons below still use the Stripe checkout service configured in the static link map. The idea id is preserved only as context for the buyer.';
+    }
+
+    const links = window.CODEZMART_STRIPE_LINKS || {};
+    document.querySelectorAll('[data-stripe-link]').forEach((button) => {
+      const key = button.getAttribute('data-stripe-link');
+      const url = links[key];
+      if (url) {
+        const resolved = new URL(url, window.location.origin);
+        if (ideaParam) {
+          resolved.searchParams.set('idea', ideaParam);
+        }
+        button.href = resolved.toString();
+        button.textContent = 'Continue to checkout';
+        button.classList.remove('link-disabled');
+      } else {
+        button.href = '/stripe-b2c-setup.md';
+        button.textContent = 'Set up Stripe link';
+        button.classList.remove('link-disabled');
+      }
+    });
+
+    const fullBuildForm = document.getElementById('full-build-form');
+    fullBuildForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(fullBuildForm);
+      const name = (data.get('name') || '').toString().trim();
+      const email = (data.get('email') || '').toString().trim();
+      const company = (data.get('company') || '').toString().trim();
+      const budget = (data.get('budget') || '').toString().trim();
+      const scope = (data.get('scope') || '').toString().trim();
+      const subject = encodeURIComponent(`Codezmart full-build inquiry${company ? ` - ${company}` : ''}`);
+      const body = encodeURIComponent([
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Company: ${company}`,
+        `Budget / timing: ${budget}`,
+        '',
+        scope,
+        '',
+        'Next step: send the Calendly link after the email lands.',
+      ].join('\n'));
+      window.location.href = `mailto:sales@codezmart.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>

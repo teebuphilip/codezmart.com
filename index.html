@@ -1,435 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodezMart — Expert Analysis. Flat Fee. 48 Hours.</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #0a0a0a;
-    --white: #f5f0e8;
-    --yellow: #f5c518;
-    --red: #e63425;
-    --gray: #2a2a2a;
-    --mid: #555;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    overflow-x: hidden;
-  }
-
-  /* TICKER */
-  .ticker {
-    background: var(--yellow);
-    color: var(--black);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 8px 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .ticker-inner {
-    display: inline-block;
-    animation: ticker 28s linear infinite;
-  }
-  .ticker-inner span { margin: 0 3rem; }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* HERO */
-  .hero {
-    padding: 60px 24px 40px;
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .hero-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--yellow);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .hero-tag::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 2px;
-    background: var(--yellow);
-  }
-
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 12vw, 9rem);
-    line-height: 0.9;
-    letter-spacing: 0.02em;
-    margin-bottom: 8px;
-  }
-
-  h1 .codez { color: var(--white); }
-  h1 .mart { color: var(--yellow); }
-
-  .hero-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(0.75rem, 2vw, 0.95rem);
-    color: var(--mid);
-    margin: 20px 0 0;
-    line-height: 1.6;
-    max-width: 560px;
-    border-left: 3px solid var(--red);
-    padding-left: 16px;
-  }
-
-  .hero-sub strong { color: var(--white); }
-
-  /* DIVIDER */
-  .divider {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .divider-line { flex: 1; height: 1px; background: var(--gray); }
-  .divider-text {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--mid);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  /* PRODUCTS GRID */
-  .products {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2px;
-  }
-
-  .card {
-    background: var(--gray);
-    padding: 32px 28px;
-    position: relative;
-    transition: transform 0.2s ease, background 0.2s ease;
-    cursor: default;
-  }
-
-  .card:hover { background: #333; transform: translateY(-3px); }
-
-  .card.live { border-top: 3px solid var(--yellow); }
-  .card.soon { border-top: 3px solid var(--mid); opacity: 0.6; }
-
-  .card-status {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .card.live .card-status { color: var(--yellow); }
-  .card.soon .card-status { color: var(--mid); }
-
-  .card-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem;
-    color: var(--gray);
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    line-height: 1;
-    filter: brightness(2);
-    opacity: 0.3;
-  }
-
-  .card h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.05em;
-    color: var(--white);
-    margin-bottom: 12px;
-    line-height: 1.1;
-  }
-
-  .card p {
-    font-size: 0.85rem;
-    color: #aaa;
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-
-  .card ul {
-    list-style: none;
-    margin-bottom: 28px;
-  }
-  .card ul li {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    color: #888;
-    padding: 5px 0;
-    border-bottom: 1px solid #333;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card ul li::before { content: '→'; color: var(--yellow); flex-shrink: 0; }
-  .card.soon ul li::before { color: var(--mid); }
-
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: auto;
-  }
-
-  .price {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
-    color: var(--yellow);
-    letter-spacing: 0.05em;
-  }
-  .card.soon .price { color: var(--mid); }
-
-  .price-note {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--mid);
-    margin-top: 2px;
-  }
-
-  .btn {
-    display: inline-block;
-    background: var(--yellow);
-    color: var(--black);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 12px 20px;
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: background 0.15s ease, transform 0.15s ease;
-  }
-  .btn:hover { background: #ffd740; transform: scale(1.03); }
-
-  .btn-soon {
-    display: inline-block;
-    border: 1px solid var(--mid);
-    color: var(--mid);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    padding: 12px 20px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  /* FOOTER */
-  .footer {
-    border-top: 1px solid var(--gray);
-    padding: 32px 24px;
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .footer-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .footer-brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 0.05em;
-  }
-  .footer-brand span { color: var(--yellow); }
-
-  .footer-links {
-    display: flex;
-    gap: 24px;
-  }
-  .footer-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--mid);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.15s;
-  }
-  .footer-links a:hover { color: var(--yellow); }
-
-  .footer-note {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: #444;
-    line-height: 1.6;
-  }
-
-  /* SCRATCH MARKS decoration */
-  .scratch {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.7rem;
-    color: var(--red);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  @media (max-width: 600px) {
-    .products { grid-template-columns: 1fr; }
-    .footer-top { flex-direction: column; align-items: flex-start; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codezmart</title>
+  <meta name="description" content="Codezmart sells pre-researched software ideas, build plans, and portable launch packages for founders, agencies, and AI builders.">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+  <nav class="site-nav">
+    <a class="brand" href="/">Codezmart</a>
+    <div class="nav-links">
+      <a href="/pricing.html">Packages</a>
+      <a href="/taxonomy.html">Taxonomy</a>
+      <a href="/examples/invoicetool.html">Examples</a>
+      <a href="/b2b.html">B2B</a>
+      <a class="nav-button" href="/buy.html">Buy Now</a>
+    </div>
+  </nav>
 
-<div class="ticker">
-  <div class="ticker-inner">
-    <span>EXPERT ANALYSIS · FLAT FEE · 48-HOUR TURNAROUND</span>
-    <span>★</span>
-    <span>NO RETAINERS. NO CONSULTANTS. JUST THE ANSWER.</span>
-    <span>★</span>
-    <span>STARTUP VALIDATION REPORT — $97</span>
-    <span>★</span>
-    <span>CODEZMART.COM</span>
-    <span>★</span>
-    <span>EXPERT ANALYSIS · FLAT FEE · 48-HOUR TURNAROUND</span>
-    <span>★</span>
-    <span>NO RETAINERS. NO CONSULTANTS. JUST THE ANSWER.</span>
-    <span>★</span>
-    <span>STARTUP VALIDATION REPORT — $97</span>
-    <span>★</span>
-    <span>CODEZMART.COM</span>
-    <span>★</span>
-  </div>
-</div>
-
-<div class="hero">
-  <div class="hero-tag">Done-for-you intelligence tools</div>
-  <h1><span class="codez">CODEZ</span><span class="mart">MART</span></h1>
-  <p class="hero-sub">
-    <strong>The answer you need before you waste six months and $40k.</strong><br>
-    Flat fee. No retainer. No consultant markups.<br>
-    Pay once, get a real deliverable in 48 hours.
-  </p>
-</div>
-
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-text">Available now</div>
-  <div class="divider-line"></div>
-</div>
-
-<div class="products">
-
-  <!-- CARD 1 - LIVE -->
-  <div class="card live">
-    <div class="card-number">01</div>
-    <div class="card-status">● Live now</div>
-    <h2>Startup Idea Validation Report</h2>
-    <p>Is your idea already dead? Find out before you waste 6 months on it. I run it through a 7-step pipeline and send you back everything in 48 hours.</p>
-    <ul>
-      <li>Dead-on-arrival verdict</li>
-      <li>Pricing model</li>
-      <li>Name + domain availability</li>
-      <li>SEO keywords</li>
-      <li>Marketing copy</li>
-      <li>Full GTM plan</li>
-    </ul>
-    <div class="card-footer">
+  <main class="page-shell">
+    <section class="hero">
       <div>
-        <div class="price">$97</div>
-        <div class="price-note">ONE TIME · 48HR TURNAROUND</div>
+        <p class="eyebrow">Launch-ready ideas for builders</p>
+        <h1>The idea is still the expensive part.</h1>
+        <p class="lead">Codezmart sells pre-researched software ideas and portable launch artifacts so founders, agencies, and AI builders can move from blank page to buying decision without paying product-studio prices first.</p>
+        <div class="cta-row">
+          <a href="/taxonomy.html">Browse ideas</a>
+          <a class="secondary" href="/buy.html">Buy packages</a>
+          <a class="secondary" href="/examples/invoicetool.html">See examples</a>
+        </div>
       </div>
-      <a href="https://buy.stripe.com/fZu4gy2Na4zU2kM3Od87K00" class="btn" target="_blank">Get Report →</a>
-    </div>
-    <div style="margin-top:16px;">
-      <a href="/sample-report.html" style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--mid);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid #444;padding-bottom:2px;" target="_blank">View sample report →</a>
-    </div>
-  </div>
+      <aside class="hero-panel">
+        <p class="eyebrow">Buy the starting point</p>
+        <p>Pick a category, buy the artifacts, and take them anywhere. Use your own developer, hire an agency, hand it to a frontier model, or keep going with Codezmart execution if you want the build done for you.</p>
+        <div class="metric-grid">
+          <div class="metric"><strong>201</strong><span>live ideas</span></div>
+          <div class="metric"><strong>20</strong><span>launch picks</span></div>
+          <div class="metric"><strong>1,784</strong><span>enriched assets</span></div>
+        </div>
+      </aside>
+    </section>
 
-  <!-- CARD 2 - COMING SOON -->
-  <div class="card soon">
-    <div class="card-number">02</div>
-    <div class="card-status">○ Coming soon</div>
-    <h2>Job Score Service</h2>
-    <p>Send me your resume and 10 job postings. I score and rank them so you stop applying to jobs that were never going to call you back.</p>
-    <ul>
-      <li>Resume vs job fit score</li>
-      <li>Ranked priority list</li>
-      <li>Red flags per posting</li>
-      <li>Cover letter angles</li>
-    </ul>
-    <div class="card-footer">
-      <div>
-        <div class="price">$47</div>
-        <div class="price-note">ONE TIME · 48HR TURNAROUND</div>
+    <section class="section">
+      <div class="section-header">
+        <p class="eyebrow">Why buyers care</p>
+        <h2>Most builders do not need more ideas. They need a better first choice.</h2>
+        <p class="lead">Instead of starting with a blank chat prompt or an expensive discovery workshop, buyers get a concrete problem, a target customer, a wedge, and portable artifacts they can use anywhere.</p>
       </div>
-      <div class="btn-soon">Notify Me</div>
-    </div>
-  </div>
-
-  <!-- CARD 3 - COMING SOON -->
-  <div class="card soon">
-    <div class="card-number">03</div>
-    <div class="card-status">○ Coming soon</div>
-    <h2>Build-Ready Spec</h2>
-    <p>You have an idea. I turn it into a complete technical spec a developer can actually build from. No more "I have an app idea" going nowhere.</p>
-    <ul>
-      <li>Full feature breakdown</li>
-      <li>Tech stack recommendation</li>
-      <li>Database schema</li>
-      <li>API surface map</li>
-      <li>Build cost estimate</li>
-    </ul>
-    <div class="card-footer">
-      <div>
-        <div class="price">$197</div>
-        <div class="price-note">ONE TIME · 48HR TURNAROUND</div>
+      <div class="package-grid">
+        <article class="package-card"><h3>Clear buyer pain</h3><p>Each idea is framed around a specific workflow problem, not a vague startup concept.</p></article>
+        <article class="package-card"><h3>Faster purchase decision</h3><p>Buy a researched starting point without paying for a long discovery process first.</p></article>
+        <article class="package-card"><h3>Portable by default</h3><p>Take the artifacts to your own builder, agency, or frontier model and keep control of execution.</p></article>
+        <article class="package-card"><h3>Upsell if needed</h3><p>If you want more than the idea, move into build JSON, PRDs, generated code, or full delivery.</p></article>
       </div>
-      <div class="btn-soon">Notify Me</div>
-    </div>
-  </div>
+    </section>
 
-</div>
+    <section class="section">
+      <div class="section-header">
+        <p class="eyebrow">Featured launch picks</p>
+        <h2>Start with the clearest problems.</h2>
+        <p class="lead">These are the kinds of ideas easiest to sell because the buyer already understands the pain, the audience, and the value of automation.</p>
+      </div>
+      <div class="package-grid">
+        <article class="package-card"><h3>Expense reports from bank statements</h3><p>Freelancers and small operators need this now, not later.</p><a href="/ideas/tool-that-automatically-generates-weekly-expense-reports-from-bank-statements-fo.html">Open idea</a></article>
+        <article class="package-card"><h3>Vendor invoice reconciliation</h3><p>Procurement teams want fewer exceptions and fewer manual checks.</p><a href="/ideas/tool-that-automatically-reconciles-vendor-invoices-with-purchase-orders-and-emai.html">Open idea</a></article>
+        <article class="package-card"><h3>Expense compliance monitoring</h3><p>Good for agencies and HR ops that need policy enforcement.</p><a href="/ideas/service-that-monitors-employee-expense-reports-for-policy-compliance-and-alerts-.html">Open idea</a></article>
+        <article class="package-card"><h3>Payroll tax filing automation</h3><p>Strong fit for accounting firms with repetitive monthly work.</p><a href="/ideas/automation-that-generates-monthly-payroll-tax-filings-and-delivers-them-to-payro.html">Open idea</a></article>
+        <article class="package-card"><h3>Billing reports from time logs</h3><p>Useful for freelancers and finance ops teams that bill work manually.</p><a href="/ideas/system-that-converts-time-tracking-logs-into-formatted-billing-reports-for-finan.html">Open idea</a></article>
+        <article class="package-card"><h3>Lease payment reminders</h3><p>Property managers already feel this pain and understand the value.</p><a href="/ideas/tool-that-tracks-lease-payments-and-sends-monthly-reminders-to-property-managers.html">Open idea</a></article>
+      </div>
+      <div class="cta-row" style="margin-top: 1.5rem;">
+        <a href="/taxonomy.html">Browse the catalog</a>
+        <a class="secondary" href="/pricing.html">See launch packages</a>
+      </div>
+    </section>
 
-<div class="footer">
-  <div class="footer-top">
-    <div class="footer-brand">CODEZ<span>MART</span></div>
-    <div class="footer-links">
-      <a href="https://confessionsofaloser.substack.com" target="_blank">Lou Zerr's Substack</a>
-      <a href="/sample-report.html" target="_blank">Sample Report</a>
-      <a href="mailto:teebu@yahoo.com">Contact</a>
-    </div>
-  </div>
-  <div class="footer-note">
-    Ships in 48 hours. © 2026 CodezMart.
-  </div>
-</div>
+    <section class="section panel build-process">
+      <p class="eyebrow">Product studio alternative</p>
+      <h2>Cheaper than discovery. More portable than agency scoping.</h2>
+      <p>If you are comparing MVP development agencies, startup product studios, AI app builders, or product discovery shops, Codezmart gives you the upstream artifact first: the idea, the research, the build JSON, and the PRD path. Take it away and build with whoever you want.</p>
+      <a class="button secondary" href="/alternatives.html">Compare the starting point</a>
+    </section>
 
+    <section class="section">
+      <div class="section-header">
+        <p class="eyebrow">FounderOps build path</p>
+        <h2>Buy the starter artifact, then decide how far to go.</h2>
+        <p class="lead">The first two packages are pre-generated catalog assets. The next two are deeper planning packages. You can stop there and build yourself, or keep going with Codezmart execution.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step"><b>1</b><h3>Choose</h3><p>Pick a category and open an idea that matches a real buyer pain.</p></div>
+        <div class="process-step"><b>2</b><h3>Review</h3><p>Read the business brief, audience, wedge, SEO, marketing copy, and GTM notes.</p></div>
+        <div class="process-step"><b>3</b><h3>Buy</h3><p>Purchase the pre-generated package that matches how much help you want.</p></div>
+        <div class="process-step"><b>4</b><h3>Build</h3><p>Hand it to your own developer, agency, or frontier model, or continue with Codezmart.</p></div>
+        <div class="process-step"><b>5</b><h3>Ship</h3><p>Move into code, deployment, or operations only if the idea earns the next step.</p></div>
+        <div class="process-step"><b>6</b><h3>Expand</h3><p>Use the catalog to find the next sellable idea after the first one is validated.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <p class="eyebrow">Packages</p>
+        <h2>Buy the starting point, the handoff, or the build.</h2>
+      </div>
+      <div class="package-grid">
+        <article class="package-card"><p class="eyebrow">Pre-generated</p><h3>Enriched Idea Pack</h3><p class="price">$97</p><p>Business brief, target user, wedge, SEO direction, marketing copy, and GTM notes. Best starting point.</p><a href="/pricing.html">Details</a></article>
+        <article class="package-card"><p class="eyebrow">Idea-specific</p><h3>Planner / PRD Pack</h3><p class="price">$997</p><p>Slice plan, feature specs, acceptance criteria, and dependencies for the selected idea.</p><a href="/pricing.html">Details</a></article>
+        <article class="package-card featured"><h3>Full Build</h3><p class="price">$10,000</p><p>Build, QA, handoff, and deployment path for selected ideas when you want execution too.</p><a href="/pricing.html">Details</a></article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer page-shell">Codezmart is a catalog of pre-enriched software ideas and build packages. All sales final.</footer>
 </body>
 </html>

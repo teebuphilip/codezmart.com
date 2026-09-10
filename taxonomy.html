@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codezmart Catalog</title>
+  <meta name="description" content="Browse Codezmart enriched startup ideas by simple business categories.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="/">Codezmart</a>
+    <div class="nav-links">
+      <a href="/pricing.html">Packages</a>
+      <a href="/taxonomy.html">Catalog</a>
+      <a href="/examples/invoicetool.html">Examples</a>
+      <a href="/b2b.html">B2B</a>
+      <a class="nav-button" href="/buy.html">Buy Now</a>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Catalog</p>
+        <h1>Pick a business category.</h1>
+        <p class="lead">Start with broad buckets like Finance, Accounting, Operations, and HVAC. Click a category to see the matching ideas.</p>
+      </div>
+      <aside class="hero-panel">
+        <div class="metric-grid">
+          <div class="metric"><strong id="idea-count">0</strong><span>enriched ideas</span></div>
+          <div class="metric"><strong id="category-count">0</strong><span>categories</span></div>
+          <div class="metric"><strong>20</strong><span>launch picks</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="example-band">
+        <div>
+          <p class="eyebrow">Example build</p>
+          <h2>InvoiceTool shows what a catalog idea becomes.</h2>
+          <p>See the real FounderOps example with a 10/10 boilerplate fit, vendor invoice routes, dashboard page, and generated feature specs.</p>
+        </div>
+        <a class="button" href="/examples/invoicetool.html">Open InvoiceTool</a>
+      </div>
+    </section>
+
+    <section id="category-view" class="section">
+      <div class="section-header">
+        <p class="eyebrow">Categories</p>
+        <h2>Choose the area first.</h2>
+      </div>
+      <div id="categories" class="category-grid"></div>
+    </section>
+
+    <section id="idea-view" class="section hidden">
+      <div class="section-header">
+        <p class="eyebrow">Ideas</p>
+        <h2 id="selected-title">Ideas</h2>
+        <p id="selected-copy" class="lead"></p>
+        <div class="cta-row">
+          <button id="back-button" class="button secondary" type="button">Back to categories</button>
+        </div>
+      </div>
+      <div id="ideas" class="idea-grid"></div>
+      <div id="empty" class="empty-state" hidden>No ideas in this category yet. More ideas can be added to the catalog later.</div>
+    </section>
+  </main>
+
+  <footer class="footer page-shell">Catalog generated from enriched AFH artifacts.</footer>
+
+  <script>
+    const categoryDefinitions = [
+      { key: "finance", label: "Finance", copy: "Payments, cash flow, invoice schedules, expenses, and financial reporting.", terms: ["payment", "cash", "expense", "revenue", "pricing", "finance", "financial"] },
+      { key: "accounting", label: "Accounting", copy: "Invoices, vendor bills, reconciliations, taxes, payroll, and bookkeeping workflows.", terms: ["invoice", "accounting", "bookkeep", "reconcile", "tax", "payroll", "vendor"] },
+      { key: "operations", label: "Operations", copy: "Scheduling, maintenance, vendors, inventory, field work, and internal workflow tools.", terms: ["operations", "schedule", "maintenance", "inventory", "vendor", "logistics", "workflow", "field"] },
+      { key: "hvac", label: "HVAC", copy: "Service dispatch, maintenance reminders, estimate follow-up, and technician workflows.", terms: ["hvac", "technician", "service", "maintenance", "dispatch", "repair", "inspection"] },
+      { key: "real-estate", label: "Real Estate", copy: "Property managers, tenants, leases, rentals, inspections, and maintenance.", terms: ["property", "tenant", "lease", "rental", "landlord", "real estate"] },
+      { key: "ecommerce", label: "Ecommerce", copy: "Retail, product catalogs, online sellers, inventory, orders, and store operations.", terms: ["ecommerce", "e-commerce", "retail", "etsy", "shopify", "seller", "product"] },
+      { key: "hr", label: "HR", copy: "Hiring, onboarding, benefits, employee reminders, and compliance workflows.", terms: ["employee", "hiring", "recruit", "onboarding", "benefits", "hr"] },
+      { key: "legal", label: "Legal & Compliance", copy: "Contracts, filings, policy checks, audits, compliance, and regulated workflows.", terms: ["legal", "contract", "compliance", "audit", "policy", "filing"] },
+      { key: "marketing", label: "Marketing", copy: "Campaigns, newsletters, content, social posting, and sales follow-up.", terms: ["marketing", "campaign", "newsletter", "content", "social", "lead"] }
+    ];
+
+    const state = { taxonomy: null, buckets: {}, active: null };
+
+    function textFor(idea) {
+      return [idea.title, idea.audience, idea.category, ...(idea.keywords || [])].join(" ").toLowerCase();
+    }
+
+    function buildBuckets() {
+      const ideas = state.taxonomy.ideas || [];
+      state.buckets = {};
+      categoryDefinitions.forEach((category) => {
+        state.buckets[category.key] = ideas.filter((idea) => {
+          const blob = textFor(idea);
+          return category.terms.some((term) => blob.includes(term));
+        });
+      });
+    }
+
+    function renderCategories() {
+      const wrap = document.getElementById("categories");
+      const tiles = categoryDefinitions.map((category) => {
+        const count = (state.buckets[category.key] || []).length;
+        const tile = document.createElement("button");
+        tile.className = "category-tile";
+        tile.type = "button";
+        tile.innerHTML = `
+          <strong>${category.label}</strong>
+          <span>${category.copy}</span>
+          <div class="category-count">${count} ideas</div>
+        `;
+        tile.addEventListener("click", () => showIdeas(category.key));
+        return tile;
+      });
+      wrap.replaceChildren(...tiles);
+    }
+
+    function showIdeas(key) {
+      const category = categoryDefinitions.find((item) => item.key === key);
+      const ideas = (state.buckets[key] || []).slice(0, 80);
+      state.active = key;
+      document.getElementById("category-view").classList.add("hidden");
+      document.getElementById("idea-view").classList.remove("hidden");
+      document.getElementById("selected-title").textContent = `${category.label} ideas`;
+      document.getElementById("selected-copy").textContent = category.copy;
+      renderIdeas(ideas);
+    }
+
+    function renderIdeas(ideas) {
+      const grid = document.getElementById("ideas");
+      const empty = document.getElementById("empty");
+      const cards = ideas.map((idea) => {
+        const card = document.createElement("article");
+        card.className = "idea-card";
+        card.innerHTML = `
+          <h3>${idea.title}</h3>
+          <div class="meta-line">Audience: ${idea.audience}</div>
+          <div class="meta-line">${idea.status || "Research enriched"} / ${idea.build_package || "Build package available"}</div>
+          <a href="${idea.url}">Open idea page</a>
+        `;
+        return card;
+      });
+      grid.replaceChildren(...cards);
+      empty.hidden = cards.length !== 0;
+    }
+
+    function showCategories() {
+      document.getElementById("idea-view").classList.add("hidden");
+      document.getElementById("category-view").classList.remove("hidden");
+    }
+
+    async function init() {
+      const response = await fetch("/taxonomy.json");
+      state.taxonomy = await response.json();
+      buildBuckets();
+      document.getElementById("idea-count").textContent = state.taxonomy.idea_count || 0;
+      document.getElementById("category-count").textContent = categoryDefinitions.length;
+      document.getElementById("back-button").addEventListener("click", showCategories);
+      renderCategories();
+    }
+
+    init().catch(() => {
+      document.getElementById("categories").innerHTML = '<div class="empty-state">Could not load taxonomy.json.</div>';
+    });
+  </script>
+</body>
+</html>
