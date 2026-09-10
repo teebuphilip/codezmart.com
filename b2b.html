@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Codezmart B2B Partnerships</title>
-  <meta name="description" content="Codezmart partners with product studios, MVP agencies, no-code firms, and venture studios that need better upstream idea inventory.">
+  <title>Codzmart B2B Partnerships</title>
+  <meta name="description" content="Codzmart partners with product studios, MVP agencies, no-code firms, and venture studios that need better upstream idea inventory.">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <nav class="site-nav">
-    <a class="brand" href="/">Codezmart</a>
+    <a class="brand" href="/">Codzmart</a>
     <div class="nav-links">
       <a href="/pricing.html">Packages</a>
       <a href="/taxonomy.html">Catalog</a>
@@ -24,7 +24,7 @@
       <div>
         <p class="eyebrow">B2B partnerships</p>
         <h1>For studios, agencies, and builders who sell the starting point.</h1>
-        <p class="lead">Codezmart gives partner teams a way to shorten discovery, sharpen scoping, and show clients something concrete before they spend on a full build.</p>
+        <p class="lead">Codzmart gives partner teams a way to shorten discovery, sharpen scoping, and show clients something concrete before they spend on a full build.</p>
         <div class="cta-row">
           <a href="/pricing.html">View packages</a>
           <a class="secondary" href="/taxonomy.html">Browse catalog</a>
@@ -136,7 +136,7 @@
         </label>
         <div class="cta-row">
           <button class="button" type="submit">Open email draft</button>
-          <a class="secondary" href="mailto:sales@codezmart.com">Email us directly</a>
+          <a class="secondary" href="mailto:sales@codzmart.com">Email us directly</a>
         </div>
       </form>
     </section>
@@ -153,7 +153,7 @@
       const company = (data.get('company') || '').toString().trim();
       const interest = (data.get('interest') || '').toString().trim();
       const message = (data.get('message') || '').toString().trim();
-      const subject = encodeURIComponent(`Codezmart B2B inquiry${company ? ` - ${company}` : ''}`);
+      const subject = encodeURIComponent(`Codzmart B2B inquiry${company ? ` - ${company}` : ''}`);
       const body = encodeURIComponent([
         `Name: ${name}`,
         `Email: ${email}`,
@@ -162,7 +162,7 @@
         '',
         message,
       ].join('\n'));
-      window.location.href = `mailto:sales@codezmart.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:sales@codzmart.com?subject=${subject}&body=${body}`;
     });
   </script>
 </body>

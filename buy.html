@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buy or inquire | Codezmart</title>
-  <meta name="description" content="Buy the fixed Codezmart packages through Stripe Checkout and send full-build inquiries by email without a custom backend.">
+  <title>Buy or inquire | Codzmart</title>
+  <meta name="description" content="Buy the fixed Codzmart packages through Stripe Checkout and send full-build inquiries by email without a custom backend.">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <nav class="site-nav">
-    <a class="brand" href="/">Codezmart</a>
+    <a class="brand" href="/">Codzmart</a>
     <div class="nav-links">
       <a href="/pricing.html">Packages</a>
       <a href="/taxonomy.html">Taxonomy</a>
@@ -24,7 +24,7 @@
       <div>
         <p class="eyebrow">Stripe checkout</p>
         <h1>Buy without a heavy backend.</h1>
-        <p class="lead">Use a tiny checkout service for the fixed packages, keep the full-build path as an inquiry, and avoid managing thousands of Stripe products or links.</p>
+        <p class="lead">Use a tiny checkout service for the fixed packages, a direct Stripe payment link for the custom brief, keep the full-build path as an inquiry, and avoid managing thousands of Stripe products or links.</p>
         <div class="cta-row">
           <a href="/stripe-b2c-setup.md">Read setup notes</a>
           <a class="secondary" href="/pricing.html">Review packages</a>
@@ -53,6 +53,13 @@
         <h2>Choose the smallest package that gets the customer to yes.</h2>
       </div>
       <div class="buy-grid" id="package-list">
+        <article class="package-card featured" id="custom-brief">
+          <p class="eyebrow">Custom brief</p>
+          <h3>GTM, SEO, Business Brief</h3>
+          <p class="price">Stripe payment link</p>
+          <p>A custom business brief focused on go-to-market, SEO direction, audience framing, and the launch narrative.</p>
+          <a class="buy-link" data-stripe-link="customBrief" href="#">Continue to Stripe</a>
+        </article>
         <article class="package-card" id="enriched-idea">
           <p class="eyebrow">Pre-generated</p>
           <h3>Enriched Idea Pack</h3>
@@ -150,7 +157,7 @@
       const url = links[key];
       if (url) {
         const resolved = new URL(url, window.location.origin);
-        if (ideaParam) {
+        if (ideaParam && resolved.origin === window.location.origin) {
           resolved.searchParams.set('idea', ideaParam);
         }
         button.href = resolved.toString();
@@ -172,7 +179,7 @@
       const company = (data.get('company') || '').toString().trim();
       const budget = (data.get('budget') || '').toString().trim();
       const scope = (data.get('scope') || '').toString().trim();
-      const subject = encodeURIComponent(`Codezmart full-build inquiry${company ? ` - ${company}` : ''}`);
+      const subject = encodeURIComponent(`Codzmart full-build inquiry${company ? ` - ${company}` : ''}`);
       const body = encodeURIComponent([
         `Name: ${name}`,
         `Email: ${email}`,
@@ -183,7 +190,7 @@
         '',
         'Next step: send the Calendly link after the email lands.',
       ].join('\n'));
-      window.location.href = `mailto:sales@codezmart.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:sales@codzmart.com?subject=${subject}&body=${body}`;
     });
   </script>
 </body>
